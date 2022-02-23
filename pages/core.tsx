@@ -23,7 +23,7 @@ const Core: NextPage = () => {
   };
   const handleDownloadAttendance = () => {
     const unique = deduplicate(lines);
-    const mapped = unique.map((x, i) => ({
+    const mapped = unique.sort((a, b) => a.studentId - b.studentId).map((x, i) => ({
       ["No"]: i + 1,
       ["Name"]: x.name,
       ["Student ID"]: x.studentId,
