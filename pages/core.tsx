@@ -89,8 +89,9 @@ const parseAsMessagePair = (lines: string[]) => {
   let temp: any = { name: null, message: null };
   lines.forEach((line, index) => {
     const isName = /to Everyone \(*/;
-    if (isName.test(line) && !temp.name) {
-      const parsedName = line.split(isName)[0].trim();
+    const isName2 = /From  (.*)  to  Everyone/;
+    if ((isName.test(line) || isName2.test(line)) && !temp.name) {
+      const parsedName = isName.test(line) ? line.split(isName)[0].trim() : isName2.exec(line)?.[1]?.trim();
       temp.name = parsedName;
     } else if (temp.name) {
       const message = line.trim();
